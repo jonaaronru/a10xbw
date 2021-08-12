@@ -11,6 +11,11 @@ import { useStaticQuery, graphql } from "gatsby"
 
 import Header from "./header"
 
+// DATE 
+import TimeAgo from 'javascript-time-ago'
+import en from 'javascript-time-ago/locale/en'
+TimeAgo.addDefaultLocale(en)
+
 const Layout = ({ children }) => {
   const data = useStaticQuery(graphql`
     query SiteTitleQuery {
