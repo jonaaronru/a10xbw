@@ -5,23 +5,36 @@ import { StaticImage } from "gatsby-plugin-image"
 import Layout from "../components/layout"
 import Seo from "../components/seo"
 
+import { ArrowSmRightIcon } from '@heroicons/react/outline'
+
 const IndexPage = () => (
   <Layout>
     <Seo title="Home" />
     <h1>Hi people</h1>
-    <p>Welcome to your new Gatsby site.</p>
-    <p>Now go build something great.</p>
-    <StaticImage
-      src="../images/gatsby-astronaut.png"
-      width={300}
-      quality={95}
-      formats={["AUTO", "WEBP", "AVIF"]}
-      alt="A Gatsby astronaut"
-      style={{ marginBottom: `1.45rem` }}
-    />
-    <p>
-      <Link to="/page-2/">Go to page 2</Link> <br />
-    </p>
+    
+    <div>
+      <Link
+        to="/about/"
+        className="inline-flex py-3 text-blue-600 hover:underline hover:cursor-pointer"
+      >
+        About
+        <ArrowSmRightIcon className="h-6 w-6 text-blue-500"/>
+      </Link>
+    </div>
+
+    <div>
+      <p className="flex items-center text-black text-sm font-medium">
+        <StaticImage
+          src="../images/profile-3.jpg"
+          alt="alex"
+          formats={["AUTO", "WEBP", "AVIF"]}
+          width={36}
+          quality={50}
+          className="w-8 h-8 rounded-full overflow-hidden mr-2 bg-gray-100"
+        />
+        Made by Alex Tatianovich
+      </p>
+    </div>
   </Layout>
 )
 
