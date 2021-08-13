@@ -6,7 +6,7 @@
 
 // You can delete this file if you're not using it
 
-const path = require('path')
+const path = require("path")
 
 exports.createPages = async ({ actions: { createPage }, graphql }) => {
   const { data } = await graphql(
@@ -41,7 +41,7 @@ exports.createPages = async ({ actions: { createPage }, graphql }) => {
 
   data.posts.edges.forEach(({ nextPost, page, previousPost }) => {
     createPage({
-      component: path.resolve('./src/templates/blog-post.js'),
+      component: path.resolve("./src/templates/blog-post.js"),
       context: {
         id: page.id,
         page,
@@ -57,14 +57,14 @@ exports.createResolvers = ({ createResolvers }) => {
   const resolvers = {
     GraphCMS_Post: {
       formattedDate: {
-        type: 'String',
-        resolve: (source) => {
+        type: "String",
+        resolve: source => {
           const date = new Date(source.date)
 
-          return new Intl.DateTimeFormat('en-US', {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric',
+          return new Intl.DateTimeFormat("en-US", {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
           }).format(date)
         },
       },

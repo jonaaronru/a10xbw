@@ -6,13 +6,16 @@ module.exports = {
   siteMetadata: {
     title: `a10xbw`,
     description: `Kick off your next, great Gatsby project with this default starter. This barebones starter ships with the main Gatsby configuration files you might need.`,
-    author: `@gatsbyjs`,
+    author: `@0h5imw`,
   },
   plugins: [
     {
       resolve: `gatsby-source-graphcms`,
       options: {
         endpoint: process.env.GRAPHCMS_ENDPOINT,
+        token: process.env.GRAPHCMS_TOKEN,
+        locales: ['en', 'ru'],
+        stages: ['DRAFT'],
       },
     },
     `gatsby-plugin-react-helmet`,

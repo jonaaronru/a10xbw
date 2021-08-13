@@ -4,7 +4,6 @@ import { Link } from "gatsby"
 import Layout from "../components/layout"
 import Seo from "../components/seo"
 
-
 // import { ArrowSmRightIcon } from '@heroicons/react/outline'
 
 const SecondPage = () => (
@@ -13,7 +12,7 @@ const SecondPage = () => (
 
     <h1>it's about</h1>
     <Link to="/" className="text-blue-500 hover:text-blue-600">
-              &larr; Back to the homepage
+      &larr; Back to the homepage
     </Link>
   </Layout>
 )

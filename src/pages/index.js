@@ -11,7 +11,7 @@ const IndexPage = () => (
   <Layout>
     <Seo title="Home" />
     <h1>Hi people</h1>
-    
+
     <div>
       <Link
         to="/about/"
@@ -26,7 +26,6 @@ const IndexPage = () => (
         Blog &rarr;
       </Link>
     </div>
-
   </Layout>
 )
 

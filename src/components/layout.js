@@ -11,9 +11,9 @@ import { useStaticQuery, graphql } from "gatsby"
 
 import Header from "./header"
 
-// DATE 
-import TimeAgo from 'javascript-time-ago'
-import en from 'javascript-time-ago/locale/en'
+// DATE
+import TimeAgo from "javascript-time-ago"
+import en from "javascript-time-ago/locale/en"
 TimeAgo.addDefaultLocale(en)
 
 const Layout = ({ children }) => {
@@ -30,9 +30,7 @@ const Layout = ({ children }) => {
   return (
     <>
       <Header siteTitle={data.site.siteMetadata?.title || `Title`} />
-      <main
-        className="m-3"  
-      >{children}</main>
+      <main className="m-3">{children}</main>
       <footer className="mx-3 py-3 border-t border-indigo-50">
         © {new Date().getFullYear()}, a10xbw
       </footer>
