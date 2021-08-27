@@ -20,8 +20,11 @@ function BlogPostTemplate({ intl, pageContext: { page } }) {
 
   if (!locales[intl.locale]) {
     // Если нет перевода, редирект на главную
-    navigate("/")
+    // navigate("/")
     return <div />
+    return(
+      <span>У этой статьи нет перевода:(</span>
+    )
   }
 
   console.log(locales)
