@@ -1,32 +1,34 @@
 import * as React from "react"
-import { Link } from "gatsby"
-import { StaticImage } from "gatsby-plugin-image"
+// import { Link } from "gatsby"
+// import { StaticImage } from "gatsby-plugin-image"
 
 import Layout from "../components/layout"
 import Seo from "../components/seo"
 
-// import { ArrowSmRightIcon } from '@heroicons/react/outline'
+import { injectIntl, Link, FormattedMessage } from "gatsby-plugin-react-intl"
 
-const IndexPage = () => (
+const IndexPage = ({ intl }) => (
   <Layout>
-    <Seo title="Home" />
-    <h1>Hi people</h1>
+    <Seo title={intl.formatMessage({ id: "hello" })} />
+    <h1>
+      <FormattedMessage id="hello" />
+    </h1>
 
-    <div>
+    <div className="inline-flex flex-col">
       <Link
         to="/about/"
-        className="inline-flex py-3 text-blue-500 hover:text-blue-600"
+        className="inline-flex mb-2 py-2 px-3 text-blue-500 bg-gray-100 rounded-sm hover:text-blue-600"
       >
-        About &rarr;
+        {intl.formatMessage({ id: "links.about" })} &rarr;
       </Link>
       <Link
         to="/blog/"
-        className="inline-flex py-3 text-blue-500 hover:text-blue-600"
+        className="inline-flex py-2 px-3 text-blue-500 bg-gray-100 rounded-sm hover:text-blue-600"
       >
-        Blog &rarr;
+        {intl.formatMessage({ id: "links.blog" })} &rarr;
       </Link>
     </div>
   </Layout>
 )
 
-export default IndexPage
+export default injectIntl(IndexPage)

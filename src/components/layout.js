@@ -8,15 +8,18 @@
 import * as React from "react"
 import PropTypes from "prop-types"
 import { useStaticQuery, graphql } from "gatsby"
+import { injectIntl } from "gatsby-plugin-react-intl"
 
 import Header from "./header"
 
 // DATE
 import TimeAgo from "javascript-time-ago"
 import en from "javascript-time-ago/locale/en"
+import ru from "javascript-time-ago/locale/ru"
 TimeAgo.addDefaultLocale(en)
+TimeAgo.addLocale(ru)
 
-const Layout = ({ children }) => {
+const Layout = ({ intl, children }) => {
   const data = useStaticQuery(graphql`
     query SiteTitleQuery {
       site {
@@ -32,7 +35,7 @@ const Layout = ({ children }) => {
       <Header siteTitle={data.site.siteMetadata?.title || `Title`} />
       <main className="m-3">{children}</main>
       <footer className="mx-3 py-3 border-t border-indigo-50">
-        © {new Date().getFullYear()}, a10xbw
+        © {new Date().getFullYear()}, {intl.formatMessage({ id: "title" })}
       </footer>
     </>
   )
@@ -42,4 +45,4 @@ Layout.propTypes = {
   children: PropTypes.node.isRequired,
 }
 
-export default Layout
+export default injectIntl(Layout)

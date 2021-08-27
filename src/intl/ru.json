@@ -1,0 +1,27 @@
+{
+  "title": "алексей татьянович",
+  "links": {
+    "blog": "Блог",
+    "about": "Обо мне",
+    "toHome": "Вернуться на главную"
+  },
+  "post": {
+    "next_post": "Следующий пост",
+    "previous_post": "Предыдущий пост"
+  },
+  "posts": "Последние публикации",
+  "description": "Kick off your next, great Gatsby project with this default-starter-intl. This barebones starter ships with the main Gatsby configuration files you might need.",
+  "author": "@0h5imw",
+  "hello": "Бонжур епта",
+  "welcome": "Welcome to your new Gatsby site.",
+  "title_page2": "Page two",
+  "hello_page2": "Hi from the second page",
+  "go_page2": "Go to page 2",
+  "build": "Now go build something great.",
+  "welcome_page2": "Welcome to page 2",
+  "go_back": "Go back to the homepage",
+  "notfound": {
+    "header": "NOT FOUND",
+    "description": "You just hit a route that doesn't exist... the sadness."
+  }
+}

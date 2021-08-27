@@ -1,51 +1,64 @@
 import React from "react"
-import { graphql, Link } from "gatsby"
+import { graphql } from "gatsby"
+import { GatsbyImage } from "gatsby-plugin-image"
+import { injectIntl, Link } from "gatsby-plugin-react-intl"
+import ReactTimeAgo from "react-time-ago"
 
 import Layout from "../components/layout"
 import Seo from "../components/seo"
 
-import ReactTimeAgo from "react-time-ago"
-
-function IndexPage({ data: { allGraphCmsPost } }) {
+function IndexPage({ intl, data: { allGraphCmsPost } }) {
   return (
     <Layout>
       <Seo title="Blog" />
 
       <div className="divide-y divide-gray-200">
         <div className="pt-6 pb-4 space-y-2">
-          <h1 className="">Latest posts</h1>
+          <h1 className="">{intl.formatMessage({ id: "posts" })}</h1>
         </div>
 
-        <ul>
+        <ul className="xl:grid xl:grid-cols-3">
           {allGraphCmsPost.nodes.map(post => {
-            return (
-              <li key={post.id} className="py-4">
-                <article className="space-y-2 xl:grid xl:grid-cols-4 xl:space-y-0 xl:items-baseline">
-                  <dl>
-                    <dt className="sr-only">Published on</dt>
-                    <dd className="text-sm leading-6 text-gray-500">
-                      <ReactTimeAgo
-                        date={post.date}
-                        locale="en-US"
-                        timeStyle="twitter"
+            if (post.locale === intl.locale) {
+              return (
+                <li key={post.id} className="py-4">
+                  <article className="space-y-2 xl:space-y-0 xl:items-baseline">
+                    {post.coverImage && (
+                      <GatsbyImage
+                        image={
+                          post.coverImage.localFile.childImageSharp
+                            .gatsbyImageData
+                        }
+                        alt={post.title}
                       />
-                    </dd>
-                  </dl>
-                  <div className="space-y-4 xl:col-span-3">
-                    <div className="space-y-6">
-                      <h2 className="tracking-normal">
-                        <Link
-                          to={`/posts/${post.slug}`}
-                          className="text-gray-900"
-                        >
-                          {post.title}
-                        </Link>
-                      </h2>
+                    )}
+
+                    <dl>
+                      <dt className="sr-only">Published on</dt>
+                      <dd className="text-sm leading-6 text-gray-500">
+                        <ReactTimeAgo
+                          date={post.date}
+                          locale={intl.locale}
+                          timeStyle="twitter"
+                        />
+                      </dd>
+                    </dl>
+                    <div className="space-y-4 xl:col-span-3">
+                      <div className="space-y-6">
+                        <h2 className="tracking-normal">
+                          <Link
+                            to={`/blog/${post.slug}`}
+                            className="text-gray-900"
+                          >
+                            {post.title}
+                          </Link>
+                        </h2>
+                      </div>
                     </div>
-                  </div>
-                </article>
-              </li>
-            )
+                  </article>
+                </li>
+              )
+            }
           })}
         </ul>
       </div>
@@ -54,16 +67,32 @@ function IndexPage({ data: { allGraphCmsPost } }) {
 }
 
 export const indexPageQuery = graphql`
-  {
-    allGraphCmsPost(filter:{ locale: { eq: en } }, sort: { fields: date, order: DESC }) {
+  query GraphCmsPosts($locale: GraphCMS_Locale) {
+    allGraphCmsPost(
+      filter: { locale: { eq: $locale } }
+      sort: { fields: date, order: DESC }
+    ) {
       nodes {
         id
         date
         slug
         title
+        locale
+        coverImage {
+          localFile {
+            childImageSharp {
+              gatsbyImageData(
+                width: 320
+                quality: 75
+                placeholder: DOMINANT_COLOR
+                formats: [AUTO, WEBP, AVIF]
+              )
+            }
+          }
+        }
       }
     }
   }
 `
 
-export default IndexPage
+export default injectIntl(IndexPage)

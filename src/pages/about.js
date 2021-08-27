@@ -4,8 +4,6 @@ import { Link } from "gatsby"
 import Layout from "../components/layout"
 import Seo from "../components/seo"
 
-// import { ArrowSmRightIcon } from '@heroicons/react/outline'
-
 const SecondPage = () => (
   <Layout>
     <Seo title="About" />

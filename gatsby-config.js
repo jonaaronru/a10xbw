@@ -10,12 +10,30 @@ module.exports = {
   },
   plugins: [
     {
+      resolve: `gatsby-plugin-react-intl`,
+      options: {
+        // language JSON resource path
+        path: `${__dirname}/src/intl`,
+        // supported language
+        languages: [`ru`, `en`],
+        // language file path
+        defaultLanguage: `ru`,
+        // option to redirect to `/ko` when connecting `/`
+        redirect: true,
+        // option for use / as defaultLangauge root path. if your defaultLanguage is `ko`, when `redirectDefaultLanguageToRoot` is true, then it will not generate `/ko/xxx` pages, instead of `/xxx`
+        redirectDefaultLanguageToRoot: false,
+        // paths that you don't want to genereate locale pages, example: ["/dashboard/","/test/**"], string format is from micromatch https://github.com/micromatch/micromatch
+        ignoredPaths: [],
+      },
+    },
+    {
       resolve: `gatsby-source-graphcms`,
       options: {
         endpoint: process.env.GRAPHCMS_ENDPOINT,
         token: process.env.GRAPHCMS_TOKEN,
-        locales: ['en', 'ru'],
-        stages: ['DRAFT'],
+        locales: ["en", "ru"],
+        stages: ["DRAFT"],
+        downloadLocalImages: true,
       },
     },
     `gatsby-plugin-react-helmet`,
@@ -29,7 +47,15 @@ module.exports = {
       },
     },
     `gatsby-transformer-sharp`,
-    `gatsby-plugin-sharp`,
+    {
+      resolve: `gatsby-plugin-sharp`,
+      options: {
+        defaults: {
+          quality: 80,
+          breakpoints: [570, 1000, 1600],
+        },
+      },
+    },
     {
       resolve: `gatsby-plugin-manifest`,
       options: {

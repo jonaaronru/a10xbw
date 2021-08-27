@@ -1,12 +1,26 @@
 fragment Post on Post {
   stage
+  locale
   remoteId: id
-  createdAt
-  updatedAt
-  publishedAt
+  createdAt(variation: COMBINED)
+  updatedAt(variation: COMBINED)
+  publishedAt(variation: COMBINED)
   title
   slug
   date
+  excerpt
+  localizations(includeCurrent: true){
+    title
+    locale
+    content {
+      ... on RichText {
+        raw
+        html
+        markdown
+        text
+      }
+    }
+  }
   content {
     ... on RichText {
       raw
@@ -33,6 +47,29 @@ fragment Post on Post {
     ... on User {
       remoteTypeName: __typename
       remoteId: id
+      stage
+    }
+  }
+  coverImage {
+    ... on Asset {
+      remoteTypeName: __typename
+      remoteId: id
+      locale
+      stage
+    }
+  }
+  author {
+    ... on Author {
+      remoteTypeName: __typename
+      remoteId: id
+      stage
+    }
+  }
+  seo {
+    ... on Seo {
+      remoteTypeName: __typename
+      remoteId: id
+      locale
       stage
     }
   }
