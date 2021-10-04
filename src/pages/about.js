@@ -1,18 +1,20 @@
 import * as React from "react"
-import { Link } from "gatsby"
+// import { Link } from "gatsby"
+import { injectIntl, Link, FormattedMessage } from "gatsby-plugin-react-intl"
 
 import Layout from "../components/layout"
 import Seo from "../components/seo"
 
-const SecondPage = () => (
+const SecondPage = ({ intl }) => (
   <Layout>
     <Seo title="About" />
 
-    <h1>it's about</h1>
+    <h1><FormattedMessage id="about.title" /></h1>
     <Link to="/" className="text-blue-500 hover:text-blue-600">
-      &larr; Back to the homepage
+      &larr; <FormattedMessage id="about.back" />
     </Link>
   </Layout>
 )
 
-export default SecondPage
+
+export default injectIntl(SecondPage)

@@ -23,5 +23,9 @@
   "notfound": {
     "header": "NOT FOUND",
     "description": "You just hit a route that doesn't exist... the sadness."
+  },
+  "about":{
+    "title": "it's about",
+    "back": "Back to home"
   }
 }
