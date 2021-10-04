@@ -6,8 +6,16 @@ import ReactTimeAgo from "react-time-ago"
 
 import Layout from "../components/layout"
 import Seo from "../components/seo"
+import Masonry from "react-masonry-css"
 
 function IndexPage({ intl, data: { allGraphCmsPost } }) {
+  const breakpoints = {
+    default: 4,
+    1100: 3,
+    700: 2,
+    500: 1
+  };
+
   return (
     <Layout>
       <Seo title="Blog" />
@@ -16,68 +24,62 @@ function IndexPage({ intl, data: { allGraphCmsPost } }) {
         <div className="pt-6 pb-4 space-y-2">
           <h1 className="">{intl.formatMessage({ id: "posts" })}</h1>
         </div>
-
-
-                    {/* allGraphCmsPost.nodes.find(x => (x.remoteId === post.remoteId && x.locale === "en"))
-                    post.coverImage && (
-                      <GatsbyImage
-                        image={
-                          post.coverImage.localFile.childImageSharp
-                            .gatsbyImageData
-                        }
-                        alt={post.title}
-                      />
-                    ) */}
-        <ul className="xl:grid xl:grid-cols-3">
+        <div className="mx-auto max-w-7xl">
+        <Masonry
+          breakpointCols={breakpoints}
+          className="flex w-auto"
+          columnClassName="my-masonry-grid_column"
+        >
           {allGraphCmsPost.nodes.map(post => {
             if (post.locale === intl.locale) {
               return (
-                <li key={post.id} className="py-4">
-                  <article className="space-y-2 xl:space-y-0 xl:items-baseline">
-                  
-                    {post.coverImage ? (
-                      <GatsbyImage
-                        image={
-                          post.coverImage.localFile.childImageSharp
-                            .gatsbyImageData
-                        }
-                        alt={post.title}
-                      />
-                    ) : post.localizations.find(x => x.locale === "en") && (
-                      <GatsbyImage
-                        image={post.localizations.find(x => x.locale === "en").coverImage.localFile.childImageSharp.gatsbyImageData}
-                        alt={post.title}
-                      />
-                    )}
+                <article key={post.id} className="py-12 space-y-2 xl:space-y-0 xl:items-baseline">
 
-                    <dl>
-                      <dt className="sr-only">Published on</dt>
-                      <dd className="text-sm leading-6 text-gray-500">
-                        <ReactTimeAgo
-                          date={post.date}
-                          locale={intl.locale}
-                          timeStyle="twitter"
-                        />
-                      </dd>
-                    </dl>
-                    <div className="space-y-4 xl:col-span-3">
-                      <div className="space-y-6">
-                        <h2 className="tracking-normal">
-                          <Link
-                            to={`/blog/${post.slug}`}
-                            className="text-gray-900"
-                          >
-                            {post.title}
-                          </Link>
-                        </h2>
-                      </div>
+                  <Link to={`/blog/${post.slug}`}>
+                  {post.coverImage ? (
+                    <GatsbyImage
+                      image={
+                        post.coverImage.localFile.childImageSharp
+                          .gatsbyImageData
+                      }
+                      alt={post.title}
+                    />
+                  ) : post.localizations.find(x => x.locale === "en") && (
+                    <GatsbyImage
+                      image={post.localizations.find(x => x.locale === "en").coverImage.localFile.childImageSharp.gatsbyImageData}
+                      alt={post.title}
+                    />
+                  )}
+                  </Link>
+
+                  <dl>
+                    <dt className="sr-only">Published on</dt>
+                    <dd className="text-sm leading-6 text-gray-500">
+                      <ReactTimeAgo
+                        date={post.date}
+                        locale={intl.locale}
+                        timeStyle="twitter"
+                      />
+                    </dd>
+                  </dl>
+                  <div className="space-y-4 xl:col-span-3">
+                    <div className="space-y-6">
+                      <h2 className="tracking-normal">
+                        <Link
+                          to={`/blog/${post.slug}`}
+                          className="text-gray-900"
+                        >
+                          {post.title}
+                        </Link>
+                      </h2>
                     </div>
-                  </article>
-                </li>
+                  </div>
+                </article>
               )
             }
           })}
-        </ul>
+        </Masonry>
+        </div>
       </div>
     </Layout>
   )
@@ -102,7 +104,7 @@ export const indexPageQuery = graphql`
             localFile {
               childImageSharp {
                 gatsbyImageData(
-                  width: 320
+                  width: 640
                   quality: 75
                   placeholder: DOMINANT_COLOR
                   formats: [AUTO, WEBP, AVIF]
@@ -115,7 +117,7 @@ export const indexPageQuery = graphql`
           localFile {
             childImageSharp {
               gatsbyImageData(
-                width: 320
+                width: 640
                 quality: 75
                 placeholder: DOMINANT_COLOR
                 formats: [AUTO, WEBP, AVIF]
