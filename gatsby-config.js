@@ -26,6 +26,31 @@ module.exports = {
         ignoredPaths: [],
       },
     },
+    // `gatsby-plugin-mdx`,
+    `gatsby-transformer-sharp`,
+    {
+      resolve: `gatsby-plugin-sharp`,
+      options: {
+        defaults: {
+          quality: 80,
+          breakpoints: [570, 1000, 1600],
+        },
+      },
+    },
+    'gatsby-remark-images',
+    {
+      resolve: `gatsby-plugin-mdx`,
+      options: {
+        gatsbyRemarkPlugins: [
+          {
+            resolve: `gatsby-remark-images`,
+            options: {
+              maxWidth: 1920,
+            },
+          },
+        ],
+      },
+    },
     {
       resolve: `gatsby-source-graphcms`,
       options: {
@@ -34,6 +59,7 @@ module.exports = {
         locales: ["en", "ru"],
         stages: ["DRAFT"],
         downloadLocalImages: true,
+        buildMarkdownNodes: true,
       },
     },
     `gatsby-plugin-react-helmet`,
@@ -44,16 +70,6 @@ module.exports = {
       options: {
         name: `images`,
         path: `${__dirname}/src/images`,
-      },
-    },
-    `gatsby-transformer-sharp`,
-    {
-      resolve: `gatsby-plugin-sharp`,
-      options: {
-        defaults: {
-          quality: 80,
-          breakpoints: [570, 1000, 1600],
-        },
       },
     },
     {
