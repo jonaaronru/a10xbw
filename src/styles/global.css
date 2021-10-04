@@ -11,11 +11,27 @@ html {
 }
 
 .article-body > *{
-  max-width: 640px;
+  /* max-width: 640px; */
   margin: 1em 0;
 }
-.article-body > img{
+.article-body img{
   width: 100%;
   max-width: inherit;
-  max-width: 920px;
 }
+
+@media screen  and (min-width: 720px){
+  .article-body img{
+    margin-left: -1em;
+    margin-right: -1em;
+    width: calc(100% + 2em);
+  }
+}
+
+/* MASONRY */
+
+.my-masonry-grid_column:not(:first-child) {
+  padding-left: 3rem; /* gutter size */
+  background-clip: padding-box;
+}
+
+
