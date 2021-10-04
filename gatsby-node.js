@@ -39,7 +39,25 @@ exports.createPages = async ({ actions: { createPage }, graphql }) => {
                 locale
                 title
                 content {
+                  markdownNode {
+                    childMdx {
+                      body
+                    }
+                  }
                   html
+                }
+                coverImage {
+                  localFile {
+                    childImageSharp {
+                      gatsbyImageData(
+                        width: 1920
+                        aspectRatio: 3.2
+                        quality: 75
+                        placeholder: DOMINANT_COLOR
+                        formats: [AUTO, WEBP, AVIF]
+                      )
+                    }
+                  }
                 }
               }
             }
@@ -62,6 +80,51 @@ exports.createPages = async ({ actions: { createPage }, graphql }) => {
     })
   })
 }
+
+// exports.createResolvers = ({ createResolvers }) => {
+//   const resolvers = {
+//     GraphCMS_Post: {
+//       coverImage: {
+//         resolve: (source, args, context, info) => {
+//           // console.log("СОУРС", source)
+//           // console.log("АРГС",args)
+//           // console.log("КОНТЕКСТ",context)
+//           // console.log("ИНФО",info)
+//           return source.localizations.find(x => x.locale === "en").coverImage
+//           // return context.nodeModel.getNodeById({id: enAssetNode})
+//         }
+//       }
+//       // coverImage: {
+//       //   // args: {
+//       //   //   locale: {
+//       //   //     type: 'GraphCMS_Locale!',
+//       //   //     defaultValue: 'en',
+//       //   //   },
+//       //   // },
+
+//       //   // resolve: async ({ remoteTypeName, remoteId }, args, context, _) => {
+//       //   //   const toGatsbyId = (remoteId) => Object.values(remoteId).join(`:`)
+          
+//       //   //  // Find the `en` node for this `Asset` entry
+//       //   //   const enAssetNode = context.nodeModel.getNodeById({
+//       //   //     id: toGatsbyId({ remoteTypeName, remoteId, locale: args.locale }),
+//       //   //   })
+
+//       //   //  // Map over the related images on the `en` node to build an array of ids
+//       //   //   // const imageGatsbyIds = enAssetNode.images.map(
+//       //   //   //   (remoteImageIdFields) => toGatsbyId(remoteImageIdFields)
+//       //   //   // )
+          
+//       //   //   // Lookup localised nodes for `images`
+//       //   //   // return context.nodeModel.getNodesByIds({ ids: imageGatsbyIds })
+//       //   //   return context.nodeModel.getNodeById({id: enAssetNode})
+//       //   // },
+//       // },
+//     },
+//   }
+
+//   createResolvers(resolvers)
+// }
 
 // exports.createResolvers = ({ createResolvers }) => {
 //   const resolvers = {
