@@ -1,5 +1,5 @@
 import React from "react"
-import { navigate } from "gatsby"
+// import { navigate } from "gatsby"
 import { GatsbyImage } from "gatsby-plugin-image"
 import { injectIntl, Link, FormattedDate } from "gatsby-plugin-react-intl"
 
@@ -7,6 +7,7 @@ import Layout from "../components/layout"
 import Seo from "../components/seo"
 
 import Author from "../components/author"
+import { MDXRenderer } from "gatsby-plugin-mdx"
 
 function BlogPostTemplate({ intl, pageContext: { page } }) {
   const locales = page.localizations.reduce((prev, curr) => {
@@ -22,9 +23,9 @@ function BlogPostTemplate({ intl, pageContext: { page } }) {
     // Если нет перевода, редирект на главную
     // navigate("/")
     return <div />
-    return(
-      <span>У этой статьи нет перевода:(</span>
-    )
+    // return(
+    //   <span>У этой статьи нет перевода:(</span>
+    // )
   }
 
   console.log(locales)
@@ -60,18 +61,19 @@ function BlogPostTemplate({ intl, pageContext: { page } }) {
         </header>
         {page.coverImage && (
           <GatsbyImage
-            image={page.coverImage.localFile.childImageSharp.gatsbyImageData}
+            image={page.coverImage ? page.coverImage.localFile.childImageSharp.gatsbyImageData : locales["en"].coverImage.localFile.childImageSharp.gatsbyImageData}
             alt={page.title}
             className="-mx-3 w-screen h"
           />
         )}
-        <section
+        {/* <section
           className="article-body"
           itemProp="articleBody"
           dangerouslySetInnerHTML={{
             __html: locales[intl.locale].content.html,
           }}
-        />
+        /> */}
+        <MDXRenderer>{locales[intl.locale].content.markdownNode.childMdx.body}</MDXRenderer>
         <Author />
 
         <div

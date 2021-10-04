@@ -17,18 +17,35 @@ function IndexPage({ intl, data: { allGraphCmsPost } }) {
           <h1 className="">{intl.formatMessage({ id: "posts" })}</h1>
         </div>
 
+
+                    {/* allGraphCmsPost.nodes.find(x => (x.remoteId === post.remoteId && x.locale === "en"))
+                    post.coverImage && (
+                      <GatsbyImage
+                        image={
+                          post.coverImage.localFile.childImageSharp
+                            .gatsbyImageData
+                        }
+                        alt={post.title}
+                      />
+                    ) */}
         <ul className="xl:grid xl:grid-cols-3">
           {allGraphCmsPost.nodes.map(post => {
             if (post.locale === intl.locale) {
               return (
                 <li key={post.id} className="py-4">
                   <article className="space-y-2 xl:space-y-0 xl:items-baseline">
-                    {post.coverImage && (
+                  
+                    {post.coverImage ? (
                       <GatsbyImage
                         image={
                           post.coverImage.localFile.childImageSharp
                             .gatsbyImageData
                         }
+                        alt={post.title}
+                      />
+                    ) : post.localizations.find(x => x.locale === "en") && (
+                      <GatsbyImage
+                        image={post.localizations.find(x => x.locale === "en").coverImage.localFile.childImageSharp.gatsbyImageData}
                         alt={post.title}
                       />
                     )}
@@ -74,10 +91,26 @@ export const indexPageQuery = graphql`
     ) {
       nodes {
         id
+        remoteId
         date
         slug
         title
         locale
+        localizations{
+          locale
+          coverImage {
+            localFile {
+              childImageSharp {
+                gatsbyImageData(
+                  width: 320
+                  quality: 75
+                  placeholder: DOMINANT_COLOR
+                  formats: [AUTO, WEBP, AVIF]
+                )
+              }
+            }
+          }
+        }
         coverImage {
           localFile {
             childImageSharp {
