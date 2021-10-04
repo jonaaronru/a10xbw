@@ -34,8 +34,15 @@ function BlogPostTemplate({ intl, pageContext: { page } }) {
     <Layout>
       <Seo title={locales[intl.locale].title} />
 
-      <article>
-        <header className="pt-6 lg:pb-10 text-center">
+      <article className="max-w-5xl mx-auto">
+        {page.coverImage && (
+          <GatsbyImage
+            image={page.coverImage ? page.coverImage.localFile.childImageSharp.gatsbyImageData : locales["en"].coverImage.localFile.childImageSharp.gatsbyImageData}
+            alt={page.title}
+            className="-mx-3 -mt-3 w-screen md:mt-5 md:mx-0 md:w-full"
+          />
+        )}
+        <header className="pt-6 lg:pb-10 sm:text-center">
           <div className="space-y-1">
             <dl className="space-y-10">
               <div>
@@ -53,19 +60,13 @@ function BlogPostTemplate({ intl, pageContext: { page } }) {
               </div>
             </dl>
             <div>
-              <h1 className="text-5xl leading-9 text-gray-900 tracking-normal sm:text-4xl sm:leading-10 md:text-5xl md:leading-14">
+              <h1 className="text-2xl mb-10 text-gray-900 tracking-normal sm:text-5xl md:text-7xl md:leading-tight">
                 {locales[intl.locale].title}
               </h1>
             </div>
           </div>
         </header>
-        {page.coverImage && (
-          <GatsbyImage
-            image={page.coverImage ? page.coverImage.localFile.childImageSharp.gatsbyImageData : locales["en"].coverImage.localFile.childImageSharp.gatsbyImageData}
-            alt={page.title}
-            className="-mx-3 w-screen h"
-          />
-        )}
+        
         {/* <section
           className="article-body"
           itemProp="articleBody"
@@ -73,7 +74,9 @@ function BlogPostTemplate({ intl, pageContext: { page } }) {
             __html: locales[intl.locale].content.html,
           }}
         /> */}
+        <div className="article-body text-lg max-w-prose mx-auto">
         <MDXRenderer>{locales[intl.locale].content.markdownNode.childMdx.body}</MDXRenderer>
+        </div>
         <Author />
 
         <div

@@ -14,16 +14,16 @@ const Language = () => {
           languages.map(language => (
             <button
               className={
-                "px-1 " +
+                "px-1 text-white" +
                 (currentLocale === language
-                  ? " text-pink-500 cursor-default"
-                  : "cursor-pointer")
+                  ? " text-opacity-30 cursor-default"
+                  : " cursor-pointer")
               }
               key={language}
               onClick={() => changeLocale(language)}
-              style={{
-                color: currentLocale === language ? `pink` : `black`,
-              }}
+              // style={{
+              //   color: currentLocale === language ? `pink` : `black`,
+              // }}
             >
               {languageName[language]}
             </button>

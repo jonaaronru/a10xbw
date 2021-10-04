@@ -27,7 +27,7 @@ exports.createPages = async ({ actions: { createPage }, graphql }) => {
                   childImageSharp {
                     gatsbyImageData(
                       width: 1920
-                      aspectRatio: 3.2
+                      aspectRatio: 1.78
                       quality: 75
                       placeholder: DOMINANT_COLOR
                       formats: [AUTO, WEBP, AVIF]
@@ -51,7 +51,7 @@ exports.createPages = async ({ actions: { createPage }, graphql }) => {
                     childImageSharp {
                       gatsbyImageData(
                         width: 1920
-                        aspectRatio: 3.2
+                        aspectRatio: 1.78
                         quality: 75
                         placeholder: DOMINANT_COLOR
                         formats: [AUTO, WEBP, AVIF]
